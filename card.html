@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Card Canvas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .controls {
+            margin-bottom: 32px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: #212529;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .scroll-container {
+            width: 100%;
+            overflow-x: auto;
+            padding: 12px;
+        }
+
+        .canvas-card {
+            width: 2000px;
+            min-height: 400px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-content: flex-start;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .img-item {
+            width: 480px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s;
+        }
+
+        .img-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .img-item img {
+            width: 480px;
+            display: block;
+            height: auto;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #dee2e6;
+            color: #dc3545;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .caption-container {
+            padding: 12px;
+            background: #ffffff;
+        }
+
+        .caption-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px dashed #dee2e6;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+            color: #495057;
+            padding: 4px 0;
+            background: transparent;
+            text-align: center;
+        }
+
+        .caption-input:focus {
+            border-bottom-color: #212529;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls">
+        <button class="btn" onclick="document.getElementById('files').click()">Upload Images</button>
+        <button class="btn btn-secondary" onclick="clearCanvas()">Clear All</button>
+        <input type="file" id="files" multiple accept="image/*" style="display: none;" onchange="loadImages(this)">
+    </div>
+
+    <div class="scroll-container">
+        <div class="canvas-card" id="canvas"></div>
+    </div>
+
+    <script>
+        function loadImages(input) {
+            const canvas = document.getElementById('canvas');
+            Array.from(input.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const item = document.createElement('div');
+                    item.className = 'img-item';
+                    item.innerHTML = `
+                        <img src="${e.target.result}" alt="Canvas Element">
+                        <button class="delete-btn" onclick="this.parentElement.remove()">&times;</button>
+                        <div class="caption-container">
+                            <input type="text" class="caption-input" placeholder="Add caption...">
+                        </div>
+                    `;
+                    canvas.appendChild(item);
+                };
+                reader.readAsDataURL(file);
+            });
+            input.value = '';
+        }
+        function clearCanvas() {
+            document.getElementById('canvas').innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
