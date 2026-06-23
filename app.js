@@ -1,69 +1,16 @@
 /* ==========================================================================
-   DAVE DOES ART - PREMIUM GRAPHIC DESIGN PORTFOLIO INTERACTION LOGIC
+   DAZZLE DAVE - PREMIUM SOFTWARE SYSTEMS ENGINE INTERACTION LOGIC
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* ==========================================
-       1. Custom Cursor Trail Animation
-       ========================================== */
-    const cursor = document.querySelector('.custom-cursor');
-    const cursorDot = document.querySelector('.custom-cursor-dot');
-    
-    // Tracking cursor position
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let cursorDotX = 0, cursorDotY = 0;
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    // Smooth lerp (linear interpolation) loop for high-fidelity custom cursor follower
-    const tickCursor = () => {
-        // Outer circle speed (slower for smooth drag trail)
-        cursorX += (mouseX - cursorX) * 0.12;
-        cursorY += (mouseY - cursorY) * 0.12;
-        
-        // Inner dot speed (snappy)
-        cursorDotX += (mouseX - cursorDotX) * 0.35;
-        cursorDotY += (mouseY - cursorDotY) * 0.35;
-
-        if (cursor) {
-            cursor.style.left = `${cursorX}px`;
-            cursor.style.top = `${cursorY}px`;
-        }
-        if (cursorDot) {
-            cursorDot.style.left = `${cursorDotX}px`;
-            cursorDot.style.top = `${cursorDotY}px`;
-        }
-
-        requestAnimationFrame(tickCursor);
-    };
-    
-    tickCursor();
-
-    // Hover interactive state transformations
-    const interactiveElements = document.querySelectorAll('a, button, .portfolio-card, .filter-btn, input, select, textarea');
-    
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor?.classList.add('hovered');
-            cursorDot?.classList.add('hovered');
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor?.classList.remove('hovered');
-            cursorDot?.classList.remove('hovered');
-        });
-    });
 
 
     /* ==========================================
        2. Scroll-Driven Header Transformation
        ========================================== */
     const header = document.querySelector('.main-header');
-    
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             header?.classList.add('scrolled');
@@ -77,12 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
        3. Intersection Observer Scroll Animations
        ========================================== */
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
-    
     const revealCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
-                // Unobserve once animation is executed to optimize performance
                 observer.unobserve(entry.target);
             }
         });
@@ -90,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const revealObserver = new IntersectionObserver(revealCallback, {
         root: null,
-        threshold: 0.15,
+        threshold: 0.1,
         rootMargin: '0px'
     });
 
@@ -113,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     menuToggle?.addEventListener('click', toggleMenu);
-
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             menuToggle?.classList.remove('active');
@@ -124,283 +68,190 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================
-       5. Hardware-Accelerated Portfolio Grid Filter
+       5. Interactive Developer TTY CLI Shell Emulator
        ========================================== */
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const portfolioCards = document.querySelectorAll('.portfolio-card');
+    const terminalInput = document.getElementById('terminal-input');
+    const terminalBody = document.getElementById('terminal-body');
+    const inputRow = document.getElementById('input-row');
 
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active from current buttons, add to clicked button
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    let userRepos = [];
 
-            const filterValue = btn.getAttribute('data-filter');
-
-            portfolioCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-
-                if (filterValue === 'all' || category === filterValue) {
-                    card.classList.remove('filtered-out');
-                    // Reset sizing styles for smooth layout rendering
-                    card.style.position = 'relative';
-                    card.style.visibility = 'visible';
-                } else {
-                    card.classList.add('filtered-out');
-                    // Delayed positioning adjustment to prevent layout break
-                    setTimeout(() => {
-                        if (card.classList.contains('filtered-out')) {
-                            card.style.position = 'absolute';
-                            card.style.visibility = 'hidden';
-                        }
-                    }, 400);
-                }
+    const commands = {
+        'help': () => `
+            <div class="terminal-line output">
+                Available TTY commands:<br>
+                - <span class="term-hl">about</span>: Learn about Dave's developer persona.<br>
+                - <span class="term-hl">skills</span> / <span class="term-hl">stack</span>: Print language proficiency matrix.<br>
+                - <span class="term-hl">projects</span> / <span class="term-hl">repos</span>: Inspect code repositories.<br>
+                - <span class="term-hl">art</span> / <span class="term-hl">design</span>: Navigate to graphic design portfolio page.<br>
+                - <span class="term-hl">clear</span>: Flush terminal history logs.<br>
+                - <span class="term-hl">help</span>: Display this list of TTY instructions.
+            </div>`,
+        'about': () => `
+            <div class="terminal-line output">
+                <strong>Name:</strong> Dazzle Dave<br>
+                <strong>Role:</strong> Software Architect & Core Systems Dev<br>
+                <strong>Focus:</strong> Embedded databases, WebGL interface rendering, and developer productivity tools.<br>
+                <strong>Philosophy:</strong> Write highly compact code that maximizes throughput and preserves system memory bounds.
+            </div>`,
+        'skills': () => `
+            <div class="terminal-line output">
+                <strong>Languages:</strong> Go, TypeScript, JavaScript, Rust, C++, C, SQL<br>
+                <strong>Frameworks:</strong> React, Next.js, Node.js, WebGL Canvas Engine<br>
+                <strong>Systems:</strong> Docker Registry, PostgreSQL Coordinator, POSIX Unix kernel mapping
+            </div>`,
+        'stack': () => commands['skills'](),
+        'repos': () => {
+            if (userRepos.length === 0) {
+                return `
+                    <div class="terminal-line output">
+                        <strong>Featured repositories (offline cache):</strong><br>
+                        - <strong>dazzle-db</strong> (Go KV store, MVCC transaction logs)<br>
+                        - <strong>reactor-ui</strong> (TypeScript reactive WebGL layout manager)<br>
+                        - <strong>clean-routes</strong> (Rust Vercel CLI routing compiler)<br>
+                        - <strong>aurora-os</strong> (C++ educational POSIX microkernel simulation)
+                    </div>`;
+            }
+            let listHTML = `<div class="terminal-line output"><strong>Dynamic repositories loaded from GitHub (dazzledave):</strong><br>`;
+            userRepos.slice(0, 6).forEach(repo => {
+                listHTML += `- <strong>${repo.name}</strong>: ${repo.description || 'No description provided.'} (<a href="${repo.html_url}" target="_blank" style="color:var(--accent-green)">link</a>)<br>`;
             });
-        });
+            listHTML += `</div>`;
+            return listHTML;
+        },
+        'projects': () => commands['repos'](),
+        'art': () => `
+            <div class="terminal-line output">
+                Redirecting client... Loading graphic design portfolio subpage: <span class="term-hl">davedoesart.html</span><br>
+                <a href="davedoesart.html" style="color: var(--accent-green); text-decoration: underline;">Click here to launch.</a>
+            </div>`,
+        'design': () => commands['art']()
+    };
+
+    terminalInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const rawCommand = terminalInput.value.trim();
+            const cleanCommand = rawCommand.toLowerCase();
+
+            // 1. Create echo line
+            const echoLine = document.createElement('div');
+            echoLine.className = 'terminal-line user-input';
+            echoLine.innerHTML = `<span class="terminal-prompt">guest@dazzledave:~$</span> ${rawCommand}`;
+            terminalBody.insertBefore(echoLine, inputRow);
+
+            // 2. Parse command execution
+            if (cleanCommand) {
+                if (cleanCommand === 'clear') {
+                    // Flush terminal logs except standard system introductions
+                    const lines = terminalBody.querySelectorAll('.terminal-line');
+                    lines.forEach(l => l.remove());
+                } else if (commands[cleanCommand]) {
+                    const resultHtml = commands[cleanCommand]();
+                    const outputLine = document.createElement('div');
+                    outputLine.innerHTML = resultHtml;
+                    terminalBody.insertBefore(outputLine, inputRow);
+                } else {
+                    const errorLine = document.createElement('div');
+                    errorLine.className = 'terminal-line output';
+                    errorLine.innerHTML = `dazzle-sh: command not found: <span style="color:#ff5f56">${rawCommand}</span>. Type <span class="term-hl">help</span> to list instructions.`;
+                    terminalBody.insertBefore(errorLine, inputRow);
+                }
+            }
+
+            // Reset input values and auto-scroll TTY viewport
+            terminalInput.value = '';
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+    });
+
+    // Auto focus terminal box on click
+    document.querySelector('.terminal-window')?.addEventListener('click', () => {
+        terminalInput?.focus();
     });
 
 
     /* ==========================================
-       6. Project Details Data & Lightbox Controller
+       6. Premium Alert Toast (Screenshot Replication)
        ========================================== */
-    const projectsData = {
-        'neon-dream': {
-            title: 'Neon Dream Energy',
-            category: 'Branding & Packaging',
-            client: 'Neon Energy Labs',
-            role: 'Brand Architect & Packaging',
-            deliverables: 'Identity System, Can Design, Custom Wordmark',
-            image: 'assets/neon_dream.png',
-            story: 'Neon Dream was conceived to capture the vibrant, electric energy of modern subcultures. We developed a highly structured custom geometric wordmark paired with an electric neon violet and coral color story. The physical can mockup showcases dark aluminum with an ultra-glossy spot UV coating that stands out spectacularly under deep fluorescent light environments.',
-            typeface: 'Syne & Plus Jakarta Sans',
-            palette: [
-                { hex: '#ff5a5f', bg: '#ff5a5f' },
-                { hex: '#7b2cbf', bg: '#7b2cbf' },
-                { hex: '#00f5ff', bg: '#00f5ff' },
-                { hex: '#07080b', bg: '#07080b' }
-            ]
-        },
-        'ethereal': {
-            title: 'Ethereal Anthology',
-            category: 'Editorial Design',
-            client: 'Codex Publishing House',
-            role: 'Creative & Editorial Director',
-            deliverables: 'Book Cover Design, Interior Layout, Typography System',
-            image: 'assets/ethereal.png',
-            story: 'Designed for a collection of avant-garde modern poetry, Ethereal bridges raw paper textures with abstract, modern organic shapes. The design process focused extensively on mathematical grid systems, selecting a bespoke editorial typeface stack that emphasizes white space, quiet breathing room, and premium literary luxury.',
-            typeface: 'Playfair Display & Inter',
-            palette: [
-                { hex: '#d6ccc2', bg: '#d6ccc2' },
-                { hex: '#1c1a27', bg: '#1c1a27' },
-                { hex: '#ffffff', bg: '#ffffff' },
-                { hex: '#e3d5ca', bg: '#e3d5ca' }
-            ]
-        },
-        'symmetry': {
-            title: 'Symmetry Architects',
-            category: 'Brand Identity',
-            client: 'Symmetry & Partners',
-            role: 'Lead Graphic Designer',
-            deliverables: 'Visual Identity, Corporate Stationery Set, Debossing layout',
-            image: 'assets/symmetry.png',
-            story: 'Symmetry is an elite architectural firm focusing on structural minimalism. We built a brand system entirely based on grid alignments and the golden ratio. The final stationery set utilizes heavy raw cotton matte black cardstock, finished with deep blind debossing print techniques, evoking structural depth and architectural permanence.',
-            typeface: 'Space Grotesk & Outfit',
-            palette: [
-                { hex: '#000000', bg: '#000000' },
-                { hex: '#333333', bg: '#333333' },
-                { hex: '#ffffff', bg: '#ffffff' },
-                { hex: '#cccccc', bg: '#cccccc' }
-            ]
-        },
-        'prism': {
-            title: 'Prism Interface',
-            category: 'UI/UX Concept',
-            client: 'Prism Fintech Corp',
-            role: 'UI/UX & Design Strategist',
-            deliverables: 'UI/UX Design Kit, Visual Dashboard Concept, Brand Tokens',
-            image: 'assets/prism.png',
-            story: 'Prism redefines visual finance applications. Applying advanced glassmorphism techniques, we created a dashboard built entirely of translucent glowing panels. High-intensity cyan and violet gradient maps guide user attention to crucial financial indices, establishing a perfect balance between high-end digital design and functional ergonomics.',
-            typeface: 'Outfit & Plus Jakarta Sans',
-            palette: [
-                { hex: '#00f5ff', bg: '#00f5ff' },
-                { hex: '#ff007f', bg: '#ff007f' },
-                { hex: '#12131c', bg: '#12131c' },
-                { hex: '#1b1d28', bg: '#1b1d28' }
-            ]
-        },
-        'bloom': {
-            title: 'Bloom Cosmetics',
-            category: 'Packaging Design',
-            client: 'Bloom Botanicals Ltd',
-            role: 'Visual Director & Packaging Designer',
-            deliverables: 'Product Bottles, Palette Strategy, Outer Box Layout',
-            image: 'assets/bloom.png',
-            story: 'Bloom is a luxury organic cosmetic brand. The branding strategy utilizes warm botanical shapes and tactile paper textures to communicate raw purity. We designed custom matte glass serum dropper bottles, complete with minimalist, embossed text layouts that feel extremely premium and tactile in-hand.',
-            typeface: 'Syne & Plus Jakarta Sans',
-            palette: [
-                { hex: '#ffb5a7', bg: '#ffb5a7' },
-                { hex: '#fcd5ce', bg: '#fcd5ce' },
-                { hex: '#f8edeb', bg: '#f8edeb' },
-                { hex: '#d8e2dc', bg: '#d8e2dc' }
-            ]
-        },
-        'spectrum': {
-            title: 'Spectrum Liquid',
-            category: '3D Illustration',
-            client: 'Personal Visual Exploration',
-            role: '3D Artist & Art Director',
-            deliverables: '3D Art Prints, High-Res Wallpapers, Interactive Backgrounds',
-            image: 'assets/spectrum.png',
-            story: 'Spectrum is an experimental personal art series exploring how fluid light interacts with highly reflective organic chrome geometries. Modeled using Cinema 4D, each shape behaves like a liquid prism, refracting light into metallic color gradients. The collection represents the intersection of digital abstraction and high-end physical lighting mechanics.',
-            typeface: 'Syne & Outfit',
-            palette: [
-                { hex: '#00f5ff', bg: '#00f5ff' },
-                { hex: '#7b2cbf', bg: '#7b2cbf' },
-                { hex: '#ff5a5f', bg: '#ff5a5f' },
-                { hex: '#ffb5a7', bg: '#ffb5a7' }
-            ]
-        }
-    };
+    const updateToast = document.getElementById('update-toast');
+    const toastDismiss = document.getElementById('toast-dismiss');
+    const toastRefresh = document.getElementById('toast-refresh');
 
-    const lightbox = document.getElementById('project-lightbox');
-    const lightboxContent = document.getElementById('lightbox-content');
-    const lightboxClose = document.getElementById('lightbox-close');
 
-    const openLightbox = (projectId) => {
-        const data = projectsData[projectId];
-        if (!data) return;
 
-        // Construct Swatches HTML
-        let swatchesHTML = '';
-        data.palette.forEach(color => {
-            swatchesHTML += `
-                <div class="swatch-item">
-                    <div class="swatch-color" style="background-color: ${color.bg}"></div>
-                    <span class="swatch-hex">${color.hex}</span>
-                </div>
-            `;
-        });
+    toastDismiss?.addEventListener('click', () => {
+        updateToast?.classList.remove('active');
+    });
 
-        // Set Lightbox Content
-        lightboxContent.innerHTML = `
-            <div class="lightbox-header">
-                <span class="lightbox-category">${data.category}</span>
-                <h3 class="lightbox-title">${data.title}</h3>
-            </div>
+    toastRefresh?.addEventListener('click', () => {
+        // Trigger clean page reload
+        location.reload();
+    });
+
+    /* ==========================================
+       7. GitHub API Dynamic Repository Loader
+       ========================================== */
+    const repoGrid = document.getElementById('repo-grid');
+
+    async function fetchGitHubRepos() {
+        try {
+            const response = await fetch('https://api.github.com/users/dazzledave/repos?sort=updated&per_page=6');
+            if (!response.ok) throw new Error('API request failed');
+            userRepos = await response.json();
             
-            <div class="lightbox-meta-grid">
-                <div class="meta-item">
-                    <span class="meta-label">Client</span>
-                    <span class="meta-value">${data.client}</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Role</span>
-                    <span class="meta-value">${data.role}</span>
-                </div>
-                <div class="meta-item">
-                    <span class="meta-label">Deliverables</span>
-                    <span class="meta-value">${data.deliverables}</span>
-                </div>
-            </div>
-
-            <img class="lightbox-showcase-img" src="${data.image}" alt="${data.title} Presentation">
-
-            <div class="lightbox-story-section">
-                <h4 class="lightbox-story-title">Project Vision & Story</h4>
-                <p class="lightbox-story-text">${data.story}</p>
-            </div>
-
-            <div class="lightbox-specs-grid">
-                <div class="spec-column">
-                    <h5 class="spec-column-title">Visual HSL Palette</h5>
-                    <div class="palette-swatches">
-                        ${swatchesHTML}
-                    </div>
-                </div>
-                <div class="spec-column">
-                    <h5 class="spec-column-title">Primary Font Family</h5>
-                    <div class="typeface-spec">
-                        <span class="font-name">${data.typeface.split('&')[0].trim()}</span>
-                        <span class="font-sample">AaBbCcDd</span>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // Activate Modal
-        lightbox?.classList.add('active');
-        lightbox?.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-    };
-
-    const closeLightbox = () => {
-        lightbox?.classList.remove('active');
-        lightbox?.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        // Clear inner HTML after transit closes to optimize
-        setTimeout(() => {
-            if (!lightbox?.classList.contains('active')) {
-                lightboxContent.innerHTML = '';
+            if (repoGrid && userRepos.length > 0) {
+                // Clear default static fallbacks
+                repoGrid.innerHTML = '';
+                
+                userRepos.forEach(repo => {
+                    const lang = repo.language || 'Code';
+                    const langClass = lang.toLowerCase().replace('++', 'cpp').replace('#', 'sharp');
+                    
+                    const card = document.createElement('div');
+                    card.className = 'repo-card';
+                    card.innerHTML = `
+                        <div class="repo-header">
+                            <svg viewBox="0 0 24 24" class="repo-icon" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <a href="${repo.html_url}" class="repo-name" target="_blank">${repo.name}</a>
+                            <span class="repo-visibility">${repo.private ? 'Private' : 'Public'}</span>
+                        </div>
+                        <p class="repo-desc">${repo.description || 'No description provided.'}</p>
+                        <div class="repo-footer">
+                            <span class="repo-lang"><span class="lang-color lang-${langClass}" style="background-color: ${getLanguageColor(lang)}"></span>${lang}</span>
+                            <span class="repo-meta-item">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                ${repo.stargazers_count}
+                            </span>
+                            <span class="repo-meta-item">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
+                                ${repo.forks_count}
+                            </span>
+                        </div>
+                    `;
+                    repoGrid.appendChild(card);
+                });
             }
-        }, 400);
-    };
-
-    // Card click event listeners
-    portfolioCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const projectId = card.getAttribute('data-id');
-            if (projectId) {
-                openLightbox(projectId);
-            }
-        });
-    });
-
-    // Close listeners
-    lightboxClose?.addEventListener('click', closeLightbox);
-    lightbox?.querySelector('.lightbox-backdrop')?.addEventListener('click', closeLightbox);
-
-    // Escape Key close support
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox?.classList.contains('active')) {
-            closeLightbox();
+        } catch (error) {
+            console.error('Error loading GitHub repositories:', error);
         }
-    });
+    }
 
+    function getLanguageColor(lang) {
+        const colors = {
+            'go': '#00add8',
+            'typescript': '#3178c6',
+            'javascript': '#f1e05a',
+            'rust': '#dee2e6',
+            'c++': '#f34b7d',
+            'python': '#3572a5',
+            'html': '#e34c26',
+            'css': '#563d7c'
+        };
+        return colors[lang.toLowerCase()] || '#8b8f9c';
+    }
 
-    /* ==========================================
-       7. Reactive Contact Form Handling
-       ========================================== */
-    const contactForm = document.getElementById('contact-form');
-    const toast = document.getElementById('toast-success');
-    const submitBtn = contactForm?.querySelector('.btn-submit');
-    const submitText = submitBtn?.querySelector('.submit-text');
-    const submitSpinner = submitBtn?.querySelector('.submit-spinner');
-
-    contactForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // 1. Show spinner & disable buttons
-        submitBtn.disabled = true;
-        submitSpinner?.classList.remove('d-none');
-        if (submitText) submitText.textContent = 'Initiating...';
-
-        // 2. Mocking API delay
-        setTimeout(() => {
-            // 3. Reset Button states
-            submitBtn.disabled = false;
-            submitSpinner?.classList.add('d-none');
-            if (submitText) submitText.textContent = 'Initiate Alignment';
-
-            // 4. Trigger premium toast
-            toast?.classList.add('active');
-            contactForm.reset();
-
-            // 5. Hide Toast after 4 seconds
-            setTimeout(() => {
-                toast?.classList.remove('active');
-            }, 4000);
-
-        }, 1500);
-    });
+    fetchGitHubRepos();
 
 });
