@@ -22,7 +22,8 @@
     --grad-border: linear-gradient(135deg, rgba(255, 90, 95, 0.3) 0%, rgba(123, 44, 191, 0.3) 100%);
     
     /* Fonts */
-    --font-heading: 'Syne', sans-serif;
+    --font-heading: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    --font-heading-weight: normal; /* Impact is naturally bold, so normal/unset is cleaner */
     --font-body: 'Plus Jakarta Sans', sans-serif;
     
     /* Animation Speeds */
