@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deliverables: 'Identity System, Can Design, Custom Wordmark',
             image: 'assets/neon_dream.png',
             story: 'Neon Dream was conceived to capture the vibrant, electric energy of modern subcultures. We developed a highly structured custom geometric wordmark paired with an electric neon violet and coral color story. The physical can mockup showcases dark aluminum with an ultra-glossy spot UV coating that stands out spectacularly under deep fluorescent light environments.',
-            typeface: 'Syne & Plus Jakarta Sans',
+            typeface: 'Impact & Plus Jakarta Sans',
             palette: [
                 { hex: '#ff5a5f', bg: '#ff5a5f' },
                 { hex: '#7b2cbf', bg: '#7b2cbf' },
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deliverables: 'Product Bottles, Palette Strategy, Outer Box Layout',
             image: 'assets/bloom.png',
             story: 'Bloom is a luxury organic cosmetic brand. The branding strategy utilizes warm botanical shapes and tactile paper textures to communicate raw purity. We designed custom matte glass serum dropper bottles, complete with minimalist, embossed text layouts that feel extremely premium and tactile in-hand.',
-            typeface: 'Syne & Plus Jakarta Sans',
+            typeface: 'Impact & Plus Jakarta Sans',
             palette: [
                 { hex: '#ffb5a7', bg: '#ffb5a7' },
                 { hex: '#fcd5ce', bg: '#fcd5ce' },
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deliverables: '3D Art Prints, High-Res Wallpapers, Interactive Backgrounds',
             image: 'assets/spectrum.png',
             story: 'Spectrum is an experimental personal art series exploring how fluid light interacts with highly reflective organic chrome geometries. Modeled using Cinema 4D, each shape behaves like a liquid prism, refracting light into metallic color gradients. The collection represents the intersection of digital abstraction and high-end physical lighting mechanics.',
-            typeface: 'Syne & Outfit',
+            typeface: 'Impact & Outfit',
             palette: [
                 { hex: '#00f5ff', bg: '#00f5ff' },
                 { hex: '#7b2cbf', bg: '#7b2cbf' },
