@@ -59,6 +59,8 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 /* Custom Scrollbar */
@@ -248,7 +250,7 @@ body {
 .logo-text {
     font-family: var(--font-heading);
     font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: var(--font-heading-weight);
     letter-spacing: 0.03em;
 }
 
@@ -347,6 +349,8 @@ body {
     .nav-link {
         font-size: 1.5rem;
         font-family: var(--font-heading);
+        font-weight: var(--font-heading-weight);
+        letter-spacing: 0.03em;
     }
     
     /* Hamburger Toggle States */
@@ -479,7 +483,7 @@ body {
 .hero-title {
     font-family: var(--font-heading);
     font-size: 4rem;
-    font-weight: 800;
+    font-weight: var(--font-heading-weight);
     line-height: 1.15;
     letter-spacing: 0.04em;
     margin-bottom: 24px;
@@ -535,7 +539,8 @@ body {
 .stat-number {
     font-family: var(--font-heading);
     font-size: 2.5rem;
-    font-weight: 800;
+    font-weight: var(--font-heading-weight);
+    letter-spacing: 0.03em;
     background: var(--grad-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -576,7 +581,7 @@ section {
 .section-title {
     font-family: var(--font-heading);
     font-size: 2.75rem;
-    font-weight: 800;
+    font-weight: var(--font-heading-weight);
     letter-spacing: 0.04em;
     margin-bottom: 16px;
 }
@@ -749,7 +754,8 @@ section {
 .project-title {
     font-family: var(--font-heading);
     font-size: 1.35rem;
-    font-weight: 700;
+    font-weight: var(--font-heading-weight);
+    letter-spacing: 0.03em;
     margin-bottom: 8px;
 }
 
@@ -879,7 +885,8 @@ section {
 .expertise-title {
     font-family: var(--font-heading);
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: var(--font-heading-weight);
+    letter-spacing: 0.03em;
     margin-top: 32px;
     margin-bottom: 16px;
 }
@@ -1357,7 +1364,7 @@ section {
 .lightbox-title {
     font-family: var(--font-heading);
     font-size: 2.5rem;
-    font-weight: 800;
+    font-weight: var(--font-heading-weight);
     letter-spacing: 0.04em;
 }
 
@@ -1413,7 +1420,8 @@ section {
 .lightbox-story-title {
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: var(--font-heading-weight);
+    letter-spacing: 0.03em;
     margin-bottom: 16px;
 }
 
@@ -1443,9 +1451,9 @@ section {
 .spec-column-title {
     font-family: var(--font-heading);
     font-size: 1.15rem;
-    font-weight: 700;
+    font-weight: var(--font-heading-weight);
     margin-bottom: 16px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03em;
     color: var(--text-primary);
 }
 
