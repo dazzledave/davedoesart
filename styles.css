@@ -249,7 +249,7 @@ body {
     font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 800;
-    letter-spacing: -0.5px;
+    letter-spacing: 0.03em;
 }
 
 .nav-menu {
@@ -481,7 +481,7 @@ body {
     font-size: 4rem;
     font-weight: 800;
     line-height: 1.15;
-    letter-spacing: -2px;
+    letter-spacing: 0.04em;
     margin-bottom: 24px;
     max-width: 950px;
 }
@@ -491,7 +491,7 @@ body {
 }
 
 @media (max-width: 576px) {
-    .hero-title { font-size: 2.25rem; letter-spacing: -1px; }
+    .hero-title { font-size: 2.25rem; letter-spacing: 0.03em; }
 }
 
 .hero-subtitle {
@@ -577,7 +577,7 @@ section {
     font-family: var(--font-heading);
     font-size: 2.75rem;
     font-weight: 800;
-    letter-spacing: -1px;
+    letter-spacing: 0.04em;
     margin-bottom: 16px;
 }
 
@@ -1358,7 +1358,7 @@ section {
     font-family: var(--font-heading);
     font-size: 2.5rem;
     font-weight: 800;
-    letter-spacing: -1px;
+    letter-spacing: 0.04em;
 }
 
 @media (max-width: 576px) {
