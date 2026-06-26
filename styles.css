@@ -5,7 +5,7 @@
 /* --- Modern Font Setup & Core Styling --- */
 :root {
     /* Color Palette */
-    --bg-dark: #07080b;
+    --bg-dark: #020204;
     --bg-card: rgba(18, 19, 26, 0.65);
     --bg-card-hover: rgba(28, 29, 38, 0.8);
     --text-primary: #f5f6f9;
@@ -13,13 +13,13 @@
     --text-muted: #646875;
     
     /* Brand Accents & Gradients */
-    --accent-coral: #ff5a5f;
-    --accent-violet: #7b2cbf;
-    --accent-neon-blue: #00f5ff;
+    --accent-coral: #ff2a3b; /* Vibrant Red */
+    --accent-violet: #8c000d; /* Deep Crimson Red */
+    --accent-neon-blue: #ff5e6c; /* Bright Neon Red */
     
     --grad-primary: linear-gradient(135deg, var(--accent-coral) 0%, var(--accent-violet) 100%);
-    --grad-glow: linear-gradient(135deg, rgba(255, 90, 95, 0.15) 0%, rgba(123, 44, 191, 0.15) 100%);
-    --grad-border: linear-gradient(135deg, rgba(255, 90, 95, 0.3) 0%, rgba(123, 44, 191, 0.3) 100%);
+    --grad-glow: linear-gradient(135deg, rgba(255, 42, 59, 0.15) 0%, rgba(140, 0, 13, 0.15) 100%);
+    --grad-border: linear-gradient(135deg, rgba(255, 42, 59, 0.3) 0%, rgba(140, 0, 13, 0.3) 100%);
     
     /* Fonts */
     --font-heading: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -36,7 +36,7 @@
     --border-radius-sm: 8px;
     --border-radius-md: 16px;
     --border-radius-lg: 24px;
-    --box-shadow-glow: 0 8px 32px 0 rgba(123, 44, 191, 0.2);
+    --box-shadow-glow: 0 8px 32px 0 rgba(255, 42, 59, 0.2);
     --box-shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
